@@ -31,10 +31,10 @@ spring:
             enabled: false # we use gulp + BrowserSync for livereload
     jackson:
         serialization.indent_output: true
-    data:
-        mongodb:
-            uri: mongodb://localhost:27017
-            database: PersonService
+#    data:
+#        mongodb:
+#            uri: mongodb://localhost:27017
+#            database: PersonService
     mail:
         host: localhost
         port: 25
