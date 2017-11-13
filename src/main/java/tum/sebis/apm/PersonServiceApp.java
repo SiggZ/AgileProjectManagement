@@ -27,7 +27,7 @@ import java.util.Collection;
 @EnableConfigurationProperties({ApplicationProperties.class})
 @EnableDiscoveryClient
 public class PersonServiceApp {
-    
+    // jenkins test comment
     private static final Logger log = LoggerFactory.getLogger(PersonServiceApp.class);
 
     private final Environment env;
