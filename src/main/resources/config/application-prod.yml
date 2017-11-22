@@ -26,10 +26,10 @@ spring:
             enabled: false
         livereload:
             enabled: false
-#    data:
-#        mongodb:
-#            uri: mongodb://localhost:27017
-#            database: PersonService
+    data:
+        mongodb:
+            uri: mongodb://localhost:27017
+            database: PersonService
     mail:
         host: localhost
         port: 25
