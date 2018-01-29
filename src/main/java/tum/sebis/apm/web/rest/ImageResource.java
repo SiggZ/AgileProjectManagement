@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tum.sebis.apm.domain.UserImage;
+import tum.sebis.apm.domain.UserImageData;
 import tum.sebis.apm.service.ImageService;
 import tum.sebis.apm.web.rest.errors.BadRequestAlertException;
 import tum.sebis.apm.web.rest.errors.InternalServerErrorException;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * REST controller for managing images.
@@ -80,6 +82,18 @@ public class ImageResource {
         } catch (IOException e) {
             throw new InternalServerErrorException(e.getMessage());
         }
+    }
+
+    /**
+     * GET  /images : get data of all images.
+     *
+     * @return the ResponseEntity with status 200 (OK) and a List with ids and names of all the images in the body.
+     */
+    @GetMapping("/images")
+    @Timed
+    public List<UserImageData> getImages() {
+        log.debug("REST request all images");
+        return imageService.findAll();
     }
 
     /**

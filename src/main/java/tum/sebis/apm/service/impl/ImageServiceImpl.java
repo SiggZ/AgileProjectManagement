@@ -9,10 +9,13 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import tum.sebis.apm.domain.UserImage;
+import tum.sebis.apm.domain.UserImageData;
 import tum.sebis.apm.service.ImageService;
 import tum.sebis.apm.web.rest.errors.ImageNotFoundException;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Service Implementation for managing Images.
@@ -44,6 +47,15 @@ public class ImageServiceImpl implements ImageService{
             throw new ImageNotFoundException();
         }
         return file;
+    }
+
+    @Override
+    public List<UserImageData> findAll() {
+        log.debug("Request to get all images");
+        List<UserImageData> imageData = new ArrayList<>();
+        gridFsTemplate.find(null).stream().forEach(file -> imageData.add(
+            new UserImageData().imageId(file.getId().toString()).name(file.getFilename())));
+        return imageData;
     }
 
     @Override
