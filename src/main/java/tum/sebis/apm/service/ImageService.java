@@ -26,7 +26,15 @@ public interface ImageService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    GridFSDBFile findOne(String id);
+    GridFSDBFile findOneById(String id);
+
+    /**
+     *  Get an image by its name.
+     *
+     *  @param name the name of the entity
+     *  @return the entity
+     */
+    GridFSDBFile findOneByName(String name);
 
     /**
      *  Get all images

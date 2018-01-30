@@ -13,11 +13,11 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class UserImageData {
-    @NotNull
-    @Field("imageId")
-    private String imageId;
 
     @NotNull
+    @Field("image_id")
+    private String imageId;
+
     @Field("name")
     private String name;
 

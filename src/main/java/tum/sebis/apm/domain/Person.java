@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -45,6 +46,7 @@ public class Person implements Serializable {
     @Field("ahcr")
     private Double ahcr;
 
+    @Valid
     @Field("user_image_data")
     private UserImageData userImageData;
 

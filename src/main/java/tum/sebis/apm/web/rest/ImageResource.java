@@ -73,7 +73,7 @@ public class ImageResource {
     @Timed
     public ResponseEntity<byte[]> getImage(@PathVariable String id) {
         log.debug("REST request to get image : {}", id);
-        GridFSDBFile file = imageService.findOne(id);
+        GridFSDBFile file = imageService.findOneById(id);
         try {
             return ResponseEntity.ok()
                 .contentLength(file.getLength())

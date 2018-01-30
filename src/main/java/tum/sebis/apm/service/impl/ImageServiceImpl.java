@@ -39,13 +39,21 @@ public class ImageServiceImpl implements ImageService{
     }
 
     @Override
-    public GridFSDBFile findOne(String id) {
+    public GridFSDBFile findOneById(String id) {
         log.debug("Request to get image: {}", id);
         GridFSDBFile file = gridFsTemplate.findOne(
             new Query().addCriteria(Criteria.where("_id").is(id)));
         if (file == null) {
             throw new ImageNotFoundException();
         }
+        return file;
+    }
+
+    @Override
+    public GridFSDBFile findOneByName(String name) {
+        log.debug("Request to get image: {}", name);
+        GridFSDBFile file = gridFsTemplate.findOne(
+            new Query().addCriteria(Criteria.where("filename").is(name)));
         return file;
     }
 
