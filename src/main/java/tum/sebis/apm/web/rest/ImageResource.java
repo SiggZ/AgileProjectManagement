@@ -32,6 +32,7 @@ public class ImageResource {
     private final Logger log = LoggerFactory.getLogger(ImageResource.class);
 
     private static final String ENTITY_NAME = "image";
+    private static final String PLACEHOLDER_USER_IMAGE = "placeholder_user_image.png";
 
     private final ImageService imageService;
 
@@ -108,5 +109,18 @@ public class ImageResource {
         log.debug("REST request to delete image : {}", id);
         imageService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+    }
+
+    @PostMapping("/images/placeholder")
+    @Timed
+    public ResponseEntity<UserImageData> savePlaceholderImage() throws URISyntaxException {
+        log.debug("REST request to save placeholder user image");
+        GridFSFile file = imageService.findOneByName(PLACEHOLDER_USER_IMAGE);
+        if (file == null) {
+            file = imageService.savePlaceholderImage(PLACEHOLDER_USER_IMAGE);
+        }
+        return ResponseEntity.created(new URI("/api/images/" + file.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, file.getFilename()))
+            .body(new UserImageData().imageId(file.getId().toString()).name(file.getFilename()));
     }
 }

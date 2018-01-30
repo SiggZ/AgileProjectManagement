@@ -14,6 +14,10 @@ import tum.sebis.apm.service.ImageService;
 import tum.sebis.apm.web.rest.errors.ImageNotFoundException;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,5 +76,28 @@ public class ImageServiceImpl implements ImageService{
         // TODO: validation?
         gridFsTemplate.delete(
             new Query().addCriteria(Criteria.where("_id").is(id)));
+    }
+
+    @Override
+    public GridFSFile savePlaceholderImage(String filename) {
+        log.debug("Request to save placeholder user image");
+        GridFSFile file = null;
+        InputStream inputStream = null;
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            inputStream = new FileInputStream(classLoader.getResource("images/" + filename).getFile());
+            file = gridFsTemplate.store(inputStream, filename, "image/png", null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file;
     }
 }

@@ -49,4 +49,9 @@ public interface ImageService {
      *  @param id the id of the entity
      */
     void delete(String id);
+
+    /**
+     *  Saves the placeholder user image from resources in the db.
+     */
+    GridFSFile savePlaceholderImage(String filename);
 }
