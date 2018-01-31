@@ -1,15 +1,21 @@
 package tum.sebis.apm.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import javax.validation.constraints.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A Person.
  */
+@Getter
+@Setter
 @Document(collection = "person")
 public class Person implements Serializable {
 
@@ -34,33 +40,20 @@ public class Person implements Serializable {
     @Field("project_availability")
     private Double projectAvailability;
 
+    @Field("sprint_availability")
+    private Double sprintAvailability;
+
     @Field("ahcr")
     private Double ahcr;
 
+    @Valid
+    @Field("user_image_data")
+    private UserImageData userImageData;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public Person name(String name) {
         this.name = name;
         return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
     }
 
     public Person surname(String surname) {
@@ -68,25 +61,9 @@ public class Person implements Serializable {
         return this;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
     public Person location(String location) {
         this.location = location;
         return this;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getGrade() {
-        return grade;
     }
 
     public Person grade(String grade) {
@@ -94,34 +71,14 @@ public class Person implements Serializable {
         return this;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
-    public Double getProjectAvailability() {
-        return projectAvailability;
-    }
-
     public Person projectAvailability(Double projectAvailability) {
         this.projectAvailability = projectAvailability;
         return this;
     }
 
-    public void setProjectAvailability(Double projectAvailability) {
-        this.projectAvailability = projectAvailability;
-    }
-
-    public Double getAhcr() {
-        return ahcr;
-    }
-
     public Person ahcr(Double ahcr) {
         this.ahcr = ahcr;
         return this;
-    }
-
-    public void setAhcr(Double ahcr) {
-        this.ahcr = ahcr;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -154,7 +111,9 @@ public class Person implements Serializable {
             ", location='" + getLocation() + "'" +
             ", grade='" + getGrade() + "'" +
             ", projectAvailability='" + getProjectAvailability() + "'" +
+            ", sprintAvailability='" + getSprintAvailability() + "'" +
             ", ahcr='" + getAhcr() + "'" +
+            ", userImage='" + getUserImageData() + "'" +
             "}";
     }
 }
