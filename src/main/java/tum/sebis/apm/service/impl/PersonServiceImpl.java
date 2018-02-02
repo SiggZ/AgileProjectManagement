@@ -37,6 +37,12 @@ public class PersonServiceImpl implements PersonService{
     @Override
     public Person save(Person person) {
         log.debug("Request to save Person : {}", person);
+        if (person.getProjectAvailability() == null) {
+            person.setProjectAvailability(0.0);
+        }
+        if (person.getSprintAvailability() == null) {
+            person.setSprintAvailability(0.0);
+        }
         person.setUserImageData(retrieveUserImageData(person.getUserImageData()));
         return personRepository.save(person);
     }
