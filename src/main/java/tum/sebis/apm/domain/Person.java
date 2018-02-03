@@ -38,13 +38,13 @@ public class Person implements Serializable {
     private String grade;
 
     @Field("project_availability")
-    private Double projectAvailability;
+    private double projectAvailability;
 
     @Field("sprint_availability")
-    private Double sprintAvailability;
+    private double sprintAvailability;
 
     @Field("ahcr")
-    private Double ahcr;
+    private double ahcr;
 
     @Valid
     @Field("user_image_data")
