@@ -3,10 +3,10 @@ package tum.sebis.apm.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tum.sebis.apm.domain.UserImage;
@@ -72,14 +72,15 @@ public class ImageResource {
      */
     @GetMapping("/images/{id}")
     @Timed
-    public ResponseEntity<byte[]> getImage(@PathVariable String id) {
+    public ResponseEntity<String> getImage(@PathVariable String id) {
         log.debug("REST request to get image : {}", id);
         GridFSDBFile file = imageService.findOneById(id);
         try {
+            byte[] result = IOUtils.toByteArray(file.getInputStream());
+            Base64 codec = new Base64();
+            String encodedString = codec.encodeBase64String(result);
             return ResponseEntity.ok()
-                .contentLength(file.getLength())
-                .contentType(MediaType.parseMediaType("image/png"))
-                .body(IOUtils.toByteArray(file.getInputStream()));
+                .body(encodedString);
         } catch (IOException e) {
             throw new InternalServerErrorException(e.getMessage());
         }
