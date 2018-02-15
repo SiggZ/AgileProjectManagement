@@ -49,7 +49,7 @@ public class PersonServiceImpl implements PersonService{
     @Override
     public List<Person> findAll() {
         log.debug("Request to get all People");
-        return personRepository.findAll();
+        return personRepository.findAllByOrderByName();
     }
 
     /**
